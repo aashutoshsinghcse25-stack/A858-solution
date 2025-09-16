@@ -1,0 +1,16 @@
+from Crypto.Cipher import Blowfish
+import base64
+ 
+KEY = b"A585"
+ 
+def unpad(msg):
+    return msg.rstrip(b"\0")
+ 
+def decrypt(ciphertext):
+    cipher = Blowfish.new(KEY, Blowfish.MODE_ECB)
+    pt_bytes = cipher.decrypt(base64.b64decode(ciphertext))
+    return unpad(pt_bytes)
+ 
+if __name__ == "__main__":
+    ciphertext = "CgOiYQ12hKFiQcpJiE4V08xoelFOd+922MFAUmKaxJi8djjO8lo5ezQgVO1OCs6+uKho9tGUJdlu9tIi9pHW5CFOquSZOTvQ/7AAiNl0/BkHN/IdnN4qXMaqfeDeb5+M0ezh0cjTdjZEGrySeyAo368ptDYqPkY2QLTRZoqcYho51m+us82aF/Ywoe1g7/JH"
+    print ("Decrypted flag:", decrypt(ciphertext))
